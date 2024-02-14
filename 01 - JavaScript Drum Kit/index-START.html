@@ -70,28 +70,38 @@
         console.log(e);
         //e es el objeto, evento, lleno de datos
         console.log(e.keyCode); //podemos usar e.keyCode si queremos ver el número de llave de la tecla que presionamos
-        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); //Acá lo que hacemos es seleccionar un atributo de la etiqueta audio, en este caso el que tenga el data-key igual a la tecla que estamos presionando, la cual es dada por el evento
+        const audio = document.querySelector(
+          `audio[data-key="${e.keyCode}"]`
+        ); /*Acá lo que hacemos es seleccionar un atributo de la etiqueta audio, en este caso el que tenga el data-key igual 
+        a la tecla que estamos presionando, la cual es dada por el evento*/
         console.log(audio);
         const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
         if (!audio) return; //Si no hay un elemento audio asociado a esa tecla retornamos, lo que quiere decir que la función parará
         audio.currentTime = 0; //reinicia el audio
         audio.play(); //Esto hará sonar el audio
-        //El problema es que si está sonando un audio no se puede hacer sonar otro al mismo tiempo, para que se reinicie esto hacemos audio.currentTime=0
+        /*El problema es que si está sonando un audio no se puede hacer sonar otro 
+        al mismo tiempo, para que se reinicie esto hacemos audio.currentTime=0*/
         key.classList.add("playing"); //Ahora haremos que añada el borde de la clase playing a la tecla que clickeemos en el momento
       });
-      const keys = document.querySelectorAll(".key"); //Esto nos va a servir para escuchar a todos los elementos de key, lo usaremos para asignarle un eventListener a cada uno, nos crea un array
+      const keys = Array.from(
+        document.querySelectorAll(".key")
+      ); /*Esto nos va a servir para escuchar a todos los elementos de key, 
+      lo usaremos para asignarle un eventListener a cada uno, nos crea un array gracias a Array.from*/
       keys.forEach((key) =>
         addEventListener("transitionend", removeTransition)
       ); //Cuando una transición termina se ejecuta el evento, usamos forEach para agregar este eventListener a cada elemento con la clase key
 
       function removeTransition(e) {
         if (e.propertyName !== "transform") return; //si la propiedad transicionando es diferente de transformar, entonces quitamos la clase playing para que se vaya el borde
-        //Normalmente elegimos la transición más larga, podemos elegir cualquier otra propiedad transicionando, el punto es que cuando uno de ellos termina de transicionar se quite la clase
+        /*Normalmente elegimos la transición más larga, podemos elegir cualquier otra propiedad transicionando,
+         el punto es que cuando uno de ellos termina de transicionar se quite la clase*/
         console.log(this); //¡
         e.target.classList.remove("playing");
       }
       /*¡
-      Podemos utilizar console.log(this) para obtener información de aquel elemento al cual le llamamos un evento. Por ejemplo, en key.addEventListener, this sería igual a la key actual*/
+      Podemos utilizar console.log(this) para obtener información
+       de aquel elemento al cual le llamamos un evento. Por ejemplo, 
+       en key.addEventListener, this sería igual a la key actual*/
     </script>
   </body>
 </html>
