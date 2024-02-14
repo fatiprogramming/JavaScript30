@@ -17,7 +17,8 @@
         <span class="sound">clap</span>
       </div>
       <div data-key="83" class="key">
-        <kbd>S</kbd>
+        <kbd>S</kbd
+        ><!--kbd marca el texto que debe introducir el usuario-->
         <span class="sound">hihat</span>
       </div>
       <div data-key="68" class="key">
@@ -86,8 +87,11 @@
       function removeTransition(e) {
         if (e.propertyName !== "transform") return; //si la propiedad transicionando es diferente de transformar, entonces quitamos la clase playing para que se vaya el borde
         //Normalmente elegimos la transición más larga, podemos elegir cualquier otra propiedad transicionando, el punto es que cuando uno de ellos termina de transicionar se quite la clase
+        console.log(this); //¡
         e.target.classList.remove("playing");
       }
+      /*¡
+      Podemos utilizar console.log(this) para obtener información de aquel elemento al cual le llamamos un evento. Por ejemplo, en key.addEventListener, this sería igual a la key actual*/
     </script>
   </body>
 </html>
