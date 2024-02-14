@@ -69,7 +69,8 @@
         console.log(e);
         //e es el objeto, evento, lleno de datos
         console.log(e.keyCode); //podemos usar e.keyCode si queremos ver el número de llave de la tecla que presionamos
-        const audio = document.querySelector(`audio[data-key="${e.keyCode}]"`); //Acá lo que hacemos es seleccionar un atributo de la etiqueta audio, en este caso el que tenga el data-key igual a la tecla que estamos presionando, la cual es dada por el evento
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); //Acá lo que hacemos es seleccionar un atributo de la etiqueta audio, en este caso el que tenga el data-key igual a la tecla que estamos presionando, la cual es dada por el evento
+        console.log(audio);
       });
     </script>
   </body>
