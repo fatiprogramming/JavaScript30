@@ -1,52 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Scoped CSS Variables and JS</title>
-  <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Scoped CSS Variables and JS</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <h2>Update CSS Variables with <span class="hl">JS</span></h2>
 
-  <div class="controls">
-    <label for="spacing">Spacing:</label>
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input
+        id="spacing"
+        type="range"
+        name="spacing"
+        min="10"
+        max="200"
+        value="10"
+        data-sizing="px"
+      />
 
-    <label for="blur">Blur:</label>
-    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+      <label for="blur">Blur:</label>
+      <input
+        id="blur"
+        type="range"
+        name="blur"
+        min="0"
+        max="25"
+        value="10"
+        data-sizing="px"
+      /><!--data- es el prefijo para crear atributos-->
 
-    <label for="base">Base Color</label>
-    <input id="base" type="color" name="base" value="#ffc600">
-  </div>
+      <label for="base">Base Color</label>
+      <input id="base" type="color" name="base" value="#ffc600" />
+    </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+    <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
 
-  <style>
+    <style>
+      :root {
+        --base: #ffc600;
+        --spacing: 10px;
+        --blur: 10px;
+      }
+      img {
+        padding: var(--spacing);
+        background: var(--base);
+        filter: blur(var(--blur));
+      }
+      .hl {
+        color: var(--base);
+      }
+      /*
+        misc styles, nothing to do with CSS variables
+      */
 
-    /*
-      misc styles, nothing to do with CSS variables
-    */
+      body {
+        text-align: center;
+        background: #193549;
+        color: white;
+        font-family: 'helvetica neue', sans-serif;
+        font-weight: 100;
+        font-size: 50px;
+      }
 
-    body {
-      text-align: center;
-      background: #193549;
-      color: white;
-      font-family: 'helvetica neue', sans-serif;
-      font-weight: 100;
-      font-size: 50px;
-    }
+      .controls {
+        margin-bottom: 50px;
+      }
 
-    .controls {
-      margin-bottom: 50px;
-    }
+      input {
+        width: 100px;
+      }
+    </style>
 
-    input {
-      width: 100px;
-    }
-  </style>
+    <script>
+      const inputs = document.querySelectorAll('.controls input');
+      //Retorna una lista de nodos (NodeList), no es un array porque no tiene métodos de array
+      function handleUpdate() {
+        console.log(this.value);
+        /*Para esta función tenemos que saber el sufijo que tienen nuestras
+        variables de CSS, por ejemplo, spacing y blur tienen px
 
-  <script>
-  </script>
+        Con el fin de que podamos obtenerlo, hay un atributo adicional llamado data-sizing
+        en los inputs, el cual es creado por el programador.
 
-</body>
+        Los atributos en HTML creados por el programador se hacen así: data-nombre
+        */
+        const suffix = this.dataset.sizing || '';
+
+        //Dataset es un objeto que contiene todos los atributos específicos de un elemento. En este caso es data-sizing, pero podría ser data-name, data-banana, lo que sea. Si agregamos .sizing solo tomará el que sea data-sizing
+        //El string vacío es para los inputs que no tienen data-sizing, si no lo ponemos vacío da undefined
+
+        document.documentElement.style.setProperty(
+          `--${this.name}`,
+          this.value + suffix
+        );
+
+        /*document.documentElement se refiere al elemento raíz HTML (<html>). Al acceder a document.documentElement, podemos manipular las propiedades CSS del elemento raíz.
+
+        style.setProperty() es un método que se utiliza para establecer el valor de una propiedad CSS en un elemento. Recibe dos argumentos: el nombre de la propiedad CSS que deseas establecer y el valor que deseas asignarle.
+
+        --${this.name} es el nombre de una propiedad CSS personalizada definida con la sintaxis --<nombre>. El ${this.name} se utiliza para obtener el valor de la propiedad name del elemento en el que se está ejecutando el código. Por ejemplo, si el elemento es un <input> con name="color", esta línea de código establecerá la propiedad CSS personalizada --color en el elemento raíz.
+
+        this.value se refiere al valor actual del elemento en el que se está ejecutando el código. Por ejemplo, si el elemento es un <input> y el usuario ha ingresado el valor "10", this.value será "10".
+
+        suffix es una variable que contiene el valor del atributo personalizado data-sizing. Puedes usar este atributo para indicar el tipo de unidad que se debe aplicar al valor. Por ejemplo, si data-sizing tiene el valor "px", se agregará "px" al final del valor. Si data-sizing no está definido o tiene un valor diferente, no se agregará ningún sufijo al valor.*/
+
+        //Podemos especificar variables en scopes más específicos como dentro de un div en vez de en todo el HTML
+      }
+
+      inputs.forEach((input) => input.addEventListener('change', handleUpdate));
+      //Cambio en los inputs
+      inputs.forEach((input) =>
+        input.addEventListener('mousemove', handleUpdate)
+      );
+      //Cambio en donde se posiciona el mouse. Mientras muevo el valor se cambia el valor, no cuando lo termino de mover
+    </script>
+  </body>
 </html>
