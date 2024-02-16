@@ -88,23 +88,39 @@
         */
         const suffix = this.dataset.sizing || '';
 
-        //Dataset es un objeto que contiene todos los atributos específicos de un elemento. En este caso es data-sizing, pero podría ser data-name, data-banana, lo que sea. Si agregamos .sizing solo tomará el que sea data-sizing
-        //El string vacío es para los inputs que no tienen data-sizing, si no lo ponemos vacío da undefined
+        //Dataset es un objeto que contiene todos los atributos específicos de un elemento.
+        //En este caso es data-sizing, pero podría ser data-name, data-banana, lo que sea.
+        // Si agregamos .sizing solo tomará el que sea data-sizing
+        //El string vacío es para los inputs que no tienen data-sizing,
+        //si no lo ponemos vacío da undefined
 
         document.documentElement.style.setProperty(
           `--${this.name}`,
           this.value + suffix
         );
 
-        /*document.documentElement se refiere al elemento raíz HTML (<html>). Al acceder a document.documentElement, podemos manipular las propiedades CSS del elemento raíz.
+        /*document.documentElement se refiere al elemento raíz HTML (<html>). Al acceder a document.
+        documentElement, podemos manipular las propiedades CSS del elemento raíz.
 
-        style.setProperty() es un método que se utiliza para establecer el valor de una propiedad CSS en un elemento. Recibe dos argumentos: el nombre de la propiedad CSS que deseas establecer y el valor que deseas asignarle.
 
-        --${this.name} es el nombre de una propiedad CSS personalizada definida con la sintaxis --<nombre>. El ${this.name} se utiliza para obtener el valor de la propiedad name del elemento en el que se está ejecutando el código. Por ejemplo, si el elemento es un <input> con name="color", esta línea de código establecerá la propiedad CSS personalizada --color en el elemento raíz.
+        style.setProperty() es un método que se utiliza para establecer el valor de una propiedad CSS en 
+        un elemento. Recibe dos argumentos: el nombre de la propiedad CSS que deseas establecer y el valor
+         que deseas asignarle.
 
-        this.value se refiere al valor actual del elemento en el que se está ejecutando el código. Por ejemplo, si el elemento es un <input> y el usuario ha ingresado el valor "10", this.value será "10".
+        --${this.name} es el nombre de una propiedad CSS personalizada definida con la sintaxis 
+        --<nombre>. El ${this.name} se utiliza para obtener el valor de la propiedad name del elemento 
+        en el que se está ejecutando el código. Por ejemplo, si el elemento es un <input> con 
+        name="color", esta línea de código establecerá la propiedad CSS personalizada --color en el 
+        elemento raíz.
 
-        suffix es una variable que contiene el valor del atributo personalizado data-sizing. Puedes usar este atributo para indicar el tipo de unidad que se debe aplicar al valor. Por ejemplo, si data-sizing tiene el valor "px", se agregará "px" al final del valor. Si data-sizing no está definido o tiene un valor diferente, no se agregará ningún sufijo al valor.*/
+        this.value se refiere al valor actual del elemento en el que se está ejecutando el código. Por 
+        ejemplo, si el elemento es un <input> y el usuario ha ingresado el valor "10", this.value será 
+        "10".
+
+        suffix es una variable que contiene el valor del atributo personalizado data-sizing. Puedes usar 
+        este atributo para indicar el tipo de unidad que se debe aplicar al valor. Por ejemplo, si 
+        data-sizing tiene el valor "px", se agregará "px" al final del valor. Si data-sizing no está 
+        definido o tiene un valor diferente, no se agregará ningún sufijo al valor.*/
 
         //Podemos especificar variables en scopes más específicos como dentro de un div en vez de en todo el HTML
       }
@@ -114,7 +130,9 @@
       inputs.forEach((input) =>
         input.addEventListener('mousemove', handleUpdate)
       );
-      //Cambio en donde se posiciona el mouse. Mientras muevo el valor se cambia el valor, no cuando lo termino de mover
+      //Cambio en donde se posiciona el mouse. 
+      //Mientras muevo el valor se cambia el valor, no cuando lo
+      // termino de mover
     </script>
   </body>
 </html>
